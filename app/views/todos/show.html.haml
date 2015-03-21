@@ -1,0 +1,6 @@
+%h3= @todo.name
+%section.tags
+  %span Tags:
+  %ul
+    - @todo.tags.each do |tag|
+      %li= tag.name

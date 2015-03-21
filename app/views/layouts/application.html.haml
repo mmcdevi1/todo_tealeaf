@@ -1,0 +1,18 @@
+!!! 5
+%html(lang="en-US")
+  %head
+    %title Todo App
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    = yield :head
+  %body.container
+    %header
+      .row
+        .col-sm-6
+          %h1= link_to "Todos!", root_path
+        .col-sm-6
+          .pull-right
+            = link_to "New Todo List", new_todo_path
+      = render 'shared/messages'
+    = yield

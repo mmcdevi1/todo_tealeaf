@@ -1,0 +1,13 @@
+%section.new_todo
+  %h3 Add a new todo
+  .row
+    .col-sm-4
+      = form_for @todo do |f|
+        .form-group
+          = f.label :name, "Name"
+          = f.text_field :name, class: "form-control"
+        .form-group
+          = f.label :description, "Description"
+          = f.text_area :description, rows: 6, class: "form-control"
+        %br
+        = f.submit "Add This Todo", class: "btn btn-default"
