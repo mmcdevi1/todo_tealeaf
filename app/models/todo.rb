@@ -1,9 +1,9 @@
 class Todo < ActiveRecord::Base
   has_many :taggings
   has_many :tags, through: :taggings
+  belongs_to :user
 
   validates :name,        presence: true
-  validates :description, presence: true  
 
   def name_only?
     description.blank?

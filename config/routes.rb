@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   
-  root to: "todos#index"
+  get 'pages/front'
+
+  root to: "pages#front"
   resources :todos
+
+  resources :users
+
+  resources :sessions, only: [:create]
+  get 'logout', to: "sessions#destroy"
 
 end
