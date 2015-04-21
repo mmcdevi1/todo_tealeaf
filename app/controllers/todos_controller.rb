@@ -20,6 +20,7 @@ class TodosController < ApplicationController
   def create
     @todo = current_user.todos.new(todo_list_params)
     if @todo.save_with_tags
+      AppMailer.notify_on_new_todo(current_user, @todo).deliver
       flash[:success] = "Todo list was saved."
       redirect_to root_path
     else
