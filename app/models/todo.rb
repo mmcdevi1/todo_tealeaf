@@ -5,6 +5,8 @@ class Todo < ActiveRecord::Base
 
   validates :name,        presence: true
 
+  before_create :generate_token
+
   def name_only?
     description.blank?
   end
@@ -22,7 +24,15 @@ class Todo < ActiveRecord::Base
     end
   end
 
+  def to_param
+    token
+  end
+
   private
+
+  def generate_token
+    self.token = SecureRandom.urlsafe_base64
+  end
   
   def tag_text
     if tags.any?

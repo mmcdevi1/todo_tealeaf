@@ -1,6 +1,8 @@
 require 'spec_helper' 
 
 describe TodosController, type: :controller do 
+  let(:user) { FactoryGirl.create(:user) }
+
   describe "GET index" do 
     context "with authenticated user" do
       before { set_current_user }
@@ -45,11 +47,15 @@ describe TodosController, type: :controller do
   end
 
   describe "POST create" do 
-    before { set_current_user }
+    before do 
+      session[:user_id] = user.id
+    end
+
     context "with valid inputs" do 
       before do 
         post :create, todo: { name: "cook", description: "description" }
       end
+
       it "creates a new todo record when the input is valid" do 
         expect(Todo.first.name).to eq("cook")
         expect(Todo.first.description).to eq("description")
@@ -58,6 +64,26 @@ describe TodosController, type: :controller do
 
       it "redirects to the root path when the input is valid" do 
         expect(response).to redirect_to root_path
+      end
+    end
+
+    context "email sending" do 
+      before do 
+        post :create, todo: { name: "cook", description: "description" }
+      end
+
+      it "sends out the email" do 
+        expect(ActionMailer::Base.deliveries).to_not be_empty
+      end
+
+      it "sends to the right recipient" do 
+        message = ActionMailer::Base.deliveries.last
+        expect(message.to).to eq([user.email])
+      end
+
+      it "sends out the right content" do 
+        message = ActionMailer::Base.deliveries.last
+        expect(message.body).to have_content("#{Todo.last.name}")
       end
     end
 
@@ -76,3 +102,44 @@ describe TodosController, type: :controller do
     end
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
