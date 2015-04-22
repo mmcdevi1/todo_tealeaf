@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root to: "pages#front"
   resources :todos
 
-  resources :users
+  resources :users, only: [:index, :edit, :show]
 
   resources :sessions, only: [:create]
   get 'logout', to: "sessions#destroy"
