@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create]
   get 'logout', to: "sessions#destroy"
 
+  resources :relationships, only: [:index, :create, :destroy]
 end

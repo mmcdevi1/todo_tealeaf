@@ -1,0 +1,5 @@
+%h1 People I follow (#{@relationships.count})
+- @relationships.each do |relationship|
+	%div
+		= link_to relationship.leader.full_name, relationship.leader
+		= link_to "Unfollow", relationship, method: :delete
