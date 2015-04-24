@@ -12,6 +12,7 @@ gem "twitter-bootstrap-rails"
 gem 'bcrypt-ruby'
 gem 'faker'
 gem 'haml-rails'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
