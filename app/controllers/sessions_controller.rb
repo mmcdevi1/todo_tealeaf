@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   def create
     user = User.where(username: params[:username]).first
     session[:user_id] = user.id
-    redirect_to todos_path
+    redirect_to current_user.admin? ? admin_todos_path : todos_path
   end
 
   def destroy

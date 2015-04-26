@@ -11,4 +11,8 @@ Rails.application.routes.draw do
   get 'logout', to: "sessions#destroy"
 
   resources :relationships, only: [:index, :create, :destroy]
+
+  namespace :admin do 
+  	resources :todos, only: [:index]
+  end
 end

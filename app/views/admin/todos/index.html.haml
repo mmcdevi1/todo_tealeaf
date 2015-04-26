@@ -1,0 +1,10 @@
+%p
+	Hello, #{current_user.full_name} (
+	= link_to "Sign out", logout_path
+	)
+
+%ul
+	- @todos.each do |todo|
+		%li
+			= link_to todo.display_text, todo
+			%span= todo.user.full_name

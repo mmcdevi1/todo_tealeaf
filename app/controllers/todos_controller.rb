@@ -1,6 +1,5 @@
-class TodosController < ApplicationController
+class TodosController < AuthenticateController
   before_action :set_todo, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user
 
   def index
     @todos = current_user.todos.all
